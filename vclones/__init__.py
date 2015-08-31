@@ -109,19 +109,30 @@ def PrintVmInfo(vm, depth=1):
     print("")
 
 
+def connect(host, user, pwd, port):
+    global si
+
+    si = SmartConnect(
+        host=host,
+        user=user,
+        pwd=pwd,
+        port=int(port)
+    )
+
+    return si
+
+
 def main():
     """
     Simple command-line program for listing the virtual machines on a system.
     """
-    global si
-
     args = GetArgs()
     if args.password:
         password = args.password
     else:
         password = getpass.getpass(prompt='Enter password for host %s and user %s: ' % (args.host, args.user))
 
-    si = SmartConnect(
+    connect(
         host=args.host,
         user=args.user,
         pwd=password,

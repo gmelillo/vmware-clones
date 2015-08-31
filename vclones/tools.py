@@ -53,6 +53,15 @@ def get_obj(content, vimtype, name):
     return obj
 
 
+def delete_file_from_datastore(content, datastore, path):
+    try:
+        datastore = get_obj(content, [vim.Datastore], datastore)
+        datastore.browser.DeleteFile('[{0}] {1}'.format(datastore, path))
+    except vim.fault.FileNotFound as e:
+        return e
+    return None
+
+
 def clone_vm(
         content, template, vm_name, si,
         datacenter_name, vm_folder, datastore_name,
