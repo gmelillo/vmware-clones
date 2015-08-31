@@ -26,6 +26,7 @@ def wait_for_task(task):
 
         if task.info.state == 'error':
             print "there was an error"
+            print(task.info.error.msg)
             task_done = True
 
 
@@ -53,13 +54,32 @@ def get_obj(content, vimtype, name):
     return obj
 
 
-def delete_file_from_datastore(content, datastore, path):
+def delete_file_from_datastore(content, datastore_name, path):
     try:
-        datastore = get_obj(content, [vim.Datastore], datastore)
-        datastore.browser.DeleteFile('[{0}] {1}'.format(datastore, path))
+        datastore = get_obj(content, [vim.Datastore], datastore_name)
+        datastore.browser.DeleteFile('[{0}] {1}'.format(datastore_name, path))
     except vim.fault.FileNotFound as e:
         return e
     return None
+
+
+def move_file_on_datastore(content, datastore_name, datacenter_name, source, destination):
+    datacenter = get_obj(content, [vim.Datacenter], datacenter_name)
+    datastore = get_obj(content, [vim.Datastore], datastore_name)
+    task = vim.FileManager.MoveDatastoreFile_Task(
+        datastore.browser,
+        '[{0}] {1}'.format(datastore_name, source),
+        datacenter,
+        '[{0}] {1}'.format(datastore_name, destination),
+        datacenter,
+        True
+    )
+    wait_for_task(task)
+
+
+def search_file_on_datastore(content, datastore_name, path):
+    datastore = get_obj(content, [vim.Datastore], datastore_name)
+    return datastore.browser
 
 
 def clone_vm(
@@ -105,3 +125,4 @@ def clone_vm(
     print "cloning VM..."
     task = template.Clone(folder=destfolder, name=vm_name, spec=clonespec)
     wait_for_task(task)
+    return task

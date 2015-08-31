@@ -12,7 +12,7 @@ import argparse
 import atexit
 import getpass
 
-from tools import clone_vm, get_obj, unregister_vm, get_vm_by_name
+from tools import clone_vm, get_obj, unregister_vm, get_vm_by_name, delete_file_from_datastore, move_file_on_datastore
 
 # Fix for self signed certificates
 
@@ -89,22 +89,75 @@ def PrintVmInfo(vm, depth=1):
             print("IP         : ", ip)
     if summary.runtime.question is not None:
         print("Question  : ", summary.runtime.question.text)
-    if summary.runtime.powerState == 'poweredOff' and summary.config.name == 'vMA-6.0':
+    if summary.runtime.powerState == 'poweredOn' and summary.config.name == 'vMA-5.5':
         clone_vm(
             si.RetrieveContent(),
             get_obj(si.RetrieveContent(), [vim.VirtualMachine], summary.config.name),
             '{0}-clone'.format(summary.config.name),
             si,
-            'Gessate',
+            'Caldera',
             None,
-            'Elpis-Clones',
-            'WagnerColora',
+            'ESX-qnap2',
+            'Trilogy',
             None,
             False
         )
+        cloned_vm = get_vm_by_name(si, '{0}-clone'.format(summary.config.name))
+        cloned_vm_dir = get_vm_by_name(si, '{0}-clone'.format(summary.config.name)).config.files.logDirectory
         unregister_vm(
-            vm=get_vm_by_name(si, '{0}-clone'.format(summary.config.name))
+            vm=cloned_vm
         )
+        print(cloned_vm_dir)
+        if cloned_vm_dir == '[{0}] {1}-clone/'.format('ESX-qnap2', summary.config.name):
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone_1/{0}-clone.vmdk'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone_1/{0}-clone.nvram'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone_1/{0}-clone.vmxf'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone_1/{0}-clone.vmsd'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone_1/{0}-clone.vmx'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone_1'.format(summary.config.name)
+            )
+        else:
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone/{0}-clone.vmdk'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone/{0}-clone.nvram'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone/{0}-clone.vmxf'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone/{0}-clone.vmsd'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone/{0}-clone.vmx'.format(summary.config.name)
+            )
+            delete_file_from_datastore(
+                si.RetrieveContent(),
+                'ESX-qnap2', '{0}-clone'.format(summary.config.name)
+            )
 
     print("")
 
