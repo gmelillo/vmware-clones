@@ -1,0 +1,10 @@
+[vmware]
+host=vcsa.example.com
+user=root
+pwd=YourStrongPassword
+port=443
+
+[storage]
+clone-storage=StorageName
+datacenter=DatacenterName
+cluster=ClusterName
