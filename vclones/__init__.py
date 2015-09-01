@@ -170,6 +170,9 @@ def clone_all_vms(vm, depth=1):
 
 
 def connect(host, user, pwd, port):
+    """
+    Create connection to vmware host
+    """
     global si
 
     si = SmartConnect(
@@ -183,6 +186,9 @@ def connect(host, user, pwd, port):
 
 
 def batch():
+    """
+    Start cloning vms referring configuration writed on esxi.ini only
+    """
     connect(
         host=config.get('vmware', 'host'),
         user=config.get('vmware', 'user'),
