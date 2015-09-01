@@ -1,20 +1,11 @@
 __author__ = 'gabriel'
-
-import pyVmomi
-
 from pyVmomi import vim
-from pyVmomi import vmodl
-
 from pyVim.connect import SmartConnect, Disconnect
-from pyVmomi import vmodl
-
 import argparse
 import atexit
 import getpass
-
 from os.path import expanduser
 import ConfigParser
-
 from tools import clone_vm, get_obj, unregister_vm, get_vm_by_name, delete_file_from_datastore, move_file_on_datastore
 
 # Fix for self signed certificates
