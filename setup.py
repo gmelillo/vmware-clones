@@ -38,7 +38,7 @@ setup(
         'vclones',
     ],
     license="GNU GENERAL PUBLIC LICENSE",
-    long_description='Export configuration from ESXi 5.X host and upload it to a central repository'
+    long_description='Clone all running virtual machines in a running vmware cluster to a specified VCSA'
                      '\n\n',
     entry_points={
         'console_scripts': [
