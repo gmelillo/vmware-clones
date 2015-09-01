@@ -1,8 +1,6 @@
 __author__ = 'gabriel'
 
 from distutils.core import setup
-from pip.req import parse_requirements
-from setuptools.command.develop import develop
 
 CLASSIFIERS = [
     'Development Status :: 2 - Pre-Alpha',
@@ -15,7 +13,7 @@ CLASSIFIERS = [
 
 setup(
     name='vmware-cloning',
-    version='0.1.2',
+    version='0.1.4',
     author="Gabriel Melillo",
     author_email="gabriel@melillo.me",
     maintainer="Gabriel Melillo",
@@ -37,12 +35,17 @@ setup(
     ],
     include_package_data=True,
     packages=[
-        'vmwarecloning',
+        'vclones',
     ],
     license="GNU GENERAL PUBLIC LICENSE",
     long_description='Export configuration from ESXi 5.X host and upload it to a central repository'
                      '\n\n',
-    entry_points={'console_scripts': 'vmwareclone-batch = vcones:batch'}
+    entry_points={
+        'console_scripts': [
+            'vmwareclone-batch = vclones:batch',
+            'vmwareclone = vclones:main'
+        ]
+    }
 )
 
 
