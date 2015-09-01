@@ -30,8 +30,8 @@ setup(
     classifiers=CLASSIFIERS,
     platforms=['OS Independent'],
     data_files=[
-        ('vmware-cloning', ['requirements.txt']),
-        ('vmware-cloning', ['esxi.ini.sample'])
+        ('vclones', ['requirements.txt']),
+        ('vvclones', ['esxi.ini.sample'])
     ],
     include_package_data=True,
     packages=[
