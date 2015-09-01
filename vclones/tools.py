@@ -1,7 +1,6 @@
 __author__ = 'gabriel'
 
 from pyVmomi import vim
-from pyVmomi import vmodl
 
 
 def get_vm_by_name(si, vmname):
@@ -26,7 +25,7 @@ def wait_for_task(task):
 
         if task.info.state == 'error':
             print "there was an error"
-            print(task.info.error.msg)
+            #task_error = task.info.error.msg
             task_done = True
 
 

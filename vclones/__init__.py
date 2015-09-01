@@ -96,7 +96,7 @@ def clone_all_vms(vm, depth=1):
     if summary.runtime.question is not None:
         print("Question  : ", summary.runtime.question.text)
     if summary.runtime.powerState == 'poweredOn':
-        clone_vm(
+        ctask = clone_vm(
             si.RetrieveContent(),
             get_obj(si.RetrieveContent(), [vim.VirtualMachine], summary.config.name),
             '{0}-clone'.format(summary.config.name),
@@ -108,62 +108,65 @@ def clone_all_vms(vm, depth=1):
             None,
             False
         )
-        cloned_vm = get_vm_by_name(si, '{0}-clone'.format(summary.config.name))
-        cloned_vm_dir = get_vm_by_name(si, '{0}-clone'.format(summary.config.name)).config.files.logDirectory
-        unregister_vm(
-            vm=cloned_vm
-        )
-        print(cloned_vm_dir)
-        if cloned_vm_dir == '[{0}] {1}-clone/'.format(config.get('storage', 'clone-storage'), summary.config.name):
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmdk'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.nvram'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmxf'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmsd'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmx'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone_1'.format(summary.config.name)
-            )
+        if ctask.info.state == 'error':
+            print(ctask.info.error.msg)
         else:
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmdk'.format(summary.config.name)
+            cloned_vm = get_vm_by_name(si, '{0}-clone'.format(summary.config.name))
+            cloned_vm_dir = get_vm_by_name(si, '{0}-clone'.format(summary.config.name)).config.files.logDirectory
+            unregister_vm(
+                vm=cloned_vm
             )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.nvram'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmxf'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmsd'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmx'.format(summary.config.name)
-            )
-            delete_file_from_datastore(
-                si.RetrieveContent(),
-                config.get('storage', 'clone-storage'), '{0}-clone'.format(summary.config.name)
-            )
+            print(cloned_vm_dir)
+            if cloned_vm_dir == '[{0}] {1}-clone/'.format(config.get('storage', 'clone-storage'), summary.config.name):
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmdk'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.nvram'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmxf'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmsd'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmx'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone_1'.format(summary.config.name)
+                )
+            else:
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmdk'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.nvram'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmxf'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmsd'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmx'.format(summary.config.name)
+                )
+                delete_file_from_datastore(
+                    si.RetrieveContent(),
+                    config.get('storage', 'clone-storage'), '{0}-clone'.format(summary.config.name)
+                )
 
     print("")
 
