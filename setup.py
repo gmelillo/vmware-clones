@@ -29,7 +29,7 @@ PACKAGES = [
 
 DATA = [
     ('vclones', ['requirements.txt']),
-    ('vvclones', ['esxi.ini.sample'])
+    ('vclones', ['esxi.ini.sample'])
 ]
 
 ENTRY_POINTS = {
@@ -41,7 +41,7 @@ ENTRY_POINTS = {
 
 setup(
     name='vmware-cloning',
-    version='0.1.4',
+    version='0.1.5',
     author="Gabriel Melillo",
     author_email="gabriel@melillo.me",
     maintainer="Gabriel Melillo",
