@@ -65,7 +65,7 @@ def GetArgs():
     return args
 
 
-def PrintVmInfo(vm, depth=1):
+def clone_all_vms(vm, depth=1):
     """
     Print information for a particular virtual machine or recurse into a folder
      with depth protection
@@ -79,7 +79,7 @@ def PrintVmInfo(vm, depth=1):
             return
         vm_list = vm.childEntity
         for c in vm_list:
-            PrintVmInfo(c, depth+1)
+            clone_all_vms(c, depth+1)
         return
 
     summary = vm.summary
@@ -204,7 +204,7 @@ def batch():
             vm_folder = datacenter.vmFolder
             vm_list = vm_folder.childEntity
             for vm in vm_list:
-                PrintVmInfo(vm)
+                clone_all_vms(vm)
             return 0
 
 
@@ -238,7 +238,7 @@ def main():
             vm_folder = datacenter.vmFolder
             vm_list = vm_folder.childEntity
             for vm in vm_list:
-                PrintVmInfo(vm)
+                clone_all_vms(vm)
             return 0
 
 # Start program
