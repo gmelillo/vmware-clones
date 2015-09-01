@@ -8,3 +8,10 @@ port=443
 clone-storage=StorageName
 datacenter=DatacenterName
 cluster=ClusterName
+
+[notification]
+enabled=no
+host=smtp.example.com
+port=25
+username=noreply@example.com
+password=smtppassword
