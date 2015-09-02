@@ -30,7 +30,7 @@ PACKAGES = [
 
 DATA = [
     (
-        'vclones', [
+        '/opt/vclones', [
             'requirements.txt',
             'email_notification.html',
             'esxi.ini.sample'

@@ -15,15 +15,17 @@
 <ul>
     <li><strong>Total VMs: {{ totalvms }}</strong>
 </ul>
-<table>
-    <tr>
-        <td>Name</td>
-        <td>Status</td>
-    </tr>
-    {% for vm in vms %}
-    <tr>
-        <td>{{ vm.name }}</td>
-        <td>{{ vm.status }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="panel panel-default" style="width: 70%; margin: 0 auto;">
+    <table class="table table-stripped table-hover">
+        <tr>
+            <td>Name</td>
+            <td class="text-right">Status</td>
+        </tr>
+        {% for vm in vms %}
+        <tr>
+            <td>{{ vm.name }}</td>
+            <td class="text-right">{{ vm.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
