@@ -15,3 +15,5 @@ host=smtp.example.com
 port=25
 username=noreply@example.com
 password=smtppassword
+from=noreply@example.com
+to=notify@example.com

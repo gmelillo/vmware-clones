@@ -7,6 +7,7 @@ import getpass
 from os.path import expanduser
 import ConfigParser
 from tools import clone_vm, get_obj, unregister_vm, get_vm_by_name, delete_file_from_datastore, move_file_on_datastore
+from vclones.smtp import send_email_notifications
 
 # Fix for self signed certificates
 
@@ -27,6 +28,8 @@ else:
 
 config = ConfigParser.ConfigParser()
 config.read(['esxi.ini', expanduser('/etc/esxi.ini')])
+
+VMS = []
 
 
 def GetObject(content, vimtype, name):
@@ -110,6 +113,10 @@ def clone_all_vms(vm, depth=1):
         )
         if ctask.info.state == 'error':
             print(ctask.info.error.msg)
+            VMS.append({
+                'name': summary.config.name,
+                'status': ctask.info.error.msg
+            })
         else:
             cloned_vm = get_vm_by_name(si, '{0}-clone'.format(summary.config.name))
             cloned_vm_dir = get_vm_by_name(si, '{0}-clone'.format(summary.config.name)).config.files.logDirectory
@@ -167,6 +174,10 @@ def clone_all_vms(vm, depth=1):
                     si.RetrieveContent(),
                     config.get('storage', 'clone-storage'), '{0}-clone'.format(summary.config.name)
                 )
+            VMS.append({
+                'name': summary.config.name,
+                'status': 'Done'
+            })
 
     print("")
 
@@ -214,6 +225,17 @@ def batch():
             for vm in vm_list:
                 clone_all_vms(vm)
             return 0
+
+    if config.getboolean('notification', 'enabled'):
+        send_email_notifications(
+            vms=VMS,
+            host=config.get('vmware', 'host'),
+            datacenter=config.get('storage', 'datacenter'),
+            cluster=config.get('storage', 'cluster'),
+            rcpt_from=config.get('notification', 'from'),
+            rcpt_to=config.get('notification', 'to'),
+            smtp_host=config.get('notification', 'host')
+        )
 
 
 def main():
