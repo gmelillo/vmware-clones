@@ -8,7 +8,7 @@ from vclones.resources import get_email_notification_template
 
 def send_email_notifications(vms, host, datacenter, cluster, rcpt_from, rcpt_to, smtp_host):
     msg = MIMEMultipart()
-    msg['Subject'] = 'Clone report on {0} [dc:{1},cl:{2}'.format(host, datacenter, cluster)
+    msg['Subject'] = 'Clone report on {0} [dc:{1},cl:{2}]'.format(host, datacenter, cluster)
     msg['From'] = rcpt_from
     msg['To'] = rcpt_to
 
