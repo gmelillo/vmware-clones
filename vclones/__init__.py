@@ -125,59 +125,75 @@ def clone_all_vms(vm, depth=1):
             )
             print(cloned_vm_dir)
             if cloned_vm_dir == '[{0}] {1}-clone/'.format(config.get('storage', 'clone-storage'), summary.config.name):
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmdk'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.nvram'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmxf'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmsd'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmx'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone_1'.format(summary.config.name)
-                )
+                try:
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmdk'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.nvram'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmxf'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmsd'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmx'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone_1'.format(summary.config.name)
+                    )
+                    VMS.append({
+                        'name': summary.config.name,
+                        'status': 'Done'
+                    })
+                except vim.fault.CannotDeleteFile as e:
+                    VMS.append({
+                        'name': summary.config.name,
+                        'status': e.msg
+                    })
             else:
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmdk'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.nvram'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmxf'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmsd'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmx'.format(summary.config.name)
-                )
-                delete_file_from_datastore(
-                    si.RetrieveContent(),
-                    config.get('storage', 'clone-storage'), '{0}-clone'.format(summary.config.name)
-                )
-            VMS.append({
-                'name': summary.config.name,
-                'status': 'Done'
-            })
+                try:
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmdk'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.nvram'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmxf'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmsd'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmx'.format(summary.config.name)
+                    )
+                    delete_file_from_datastore(
+                        si.RetrieveContent(),
+                        config.get('storage', 'clone-storage'), '{0}-clone'.format(summary.config.name)
+                    )
+                    VMS.append({
+                        'name': summary.config.name,
+                        'status': 'Done'
+                    })
+                except vim.fault.CannotDeleteFile as e:
+                    VMS.append({
+                        'name': summary.config.name,
+                        'status': e.msg
+                    })
 
     print("")
 
