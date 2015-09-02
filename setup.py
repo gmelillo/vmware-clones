@@ -17,6 +17,7 @@ REQUIREMENTS = [
     "requests==2.7.0",
     "six==1.9.0",
     "wsgiref==0.1.2",
+    "Jinja2==2.8",
 ]
 
 PLATFORMS = [
@@ -28,8 +29,13 @@ PACKAGES = [
 ]
 
 DATA = [
-    ('vclones', ['requirements.txt']),
-    ('vclones', ['esxi.ini.sample'])
+    (
+        'vclones', [
+            'requirements.txt',
+            'email_notification.html',
+            'esxi.ini.sample'
+        ]
+    )
 ]
 
 ENTRY_POINTS = {
