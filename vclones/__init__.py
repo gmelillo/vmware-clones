@@ -99,6 +99,7 @@ def clone_all_vms(vm, depth=1):
     if summary.runtime.question is not None:
         print("Question  : ", summary.runtime.question.text)
     if summary.runtime.powerState == 'poweredOn':
+        vm_name = summary.config.name
         ctask = clone_vm(
             si.RetrieveContent(),
             get_obj(si.RetrieveContent(), [vim.VirtualMachine], summary.config.name),
@@ -111,15 +112,19 @@ def clone_all_vms(vm, depth=1):
             None,
             False
         )
+        print(ctask)
         if ctask.info.state == 'error':
             print(ctask.info.error.msg)
             VMS.append({
-                'name': summary.config.name,
+                'name': vm_name,
                 'status': ctask.info.error.msg
             })
         else:
+            print('Get cloned vm')
             cloned_vm = get_vm_by_name(si, '{0}-clone'.format(summary.config.name))
+            print('Get cloned vm dir')
             cloned_vm_dir = get_vm_by_name(si, '{0}-clone'.format(summary.config.name)).config.files.logDirectory
+            print('Unregistering vm')
             unregister_vm(
                 vm=cloned_vm
             )

@@ -1,6 +1,6 @@
 __author__ = 'gabriel'
 
-from distutils.core import setup
+from setuptools import setup
 
 CLASSIFIERS = [
     'Development Status :: 2 - Pre-Alpha',
@@ -47,7 +47,7 @@ ENTRY_POINTS = {
 
 setup(
     name='vmware-cloning',
-    version='0.1.5',
+    version='0.1.6',
     author="Gabriel Melillo",
     author_email="gabriel@melillo.me",
     maintainer="Gabriel Melillo",
