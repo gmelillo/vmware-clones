@@ -8,6 +8,7 @@ from os.path import expanduser
 import ConfigParser
 from tools import clone_vm, get_obj, unregister_vm, get_vm_by_name, delete_file_from_datastore, move_file_on_datastore
 from vclones.smtp import send_email_notifications
+from sys import stdout
 
 # Fix for self signed certificates
 
@@ -98,6 +99,7 @@ def clone_all_vms(vm, depth=1):
             print("IP         : ", ip)
     if summary.runtime.question is not None:
         print("Question  : ", summary.runtime.question.text)
+    stdout.flush()
     if summary.runtime.powerState == 'poweredOn':
         vm_name = summary.config.name
         ctask = clone_vm(
