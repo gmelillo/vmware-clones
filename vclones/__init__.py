@@ -64,6 +64,9 @@ def GetArgs():
     parser.add_argument(
         '-p', '--password', required=False, action='store', help='Password to use when connecting to host'
     )
+    parser.add_argument(
+        '-v', '--vm', required=False, action='store', help='Select the VM to clone'
+    )
     args = parser.parse_args()
     return args
 
