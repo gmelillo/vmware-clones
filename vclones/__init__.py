@@ -260,6 +260,38 @@ def batch():
             smtp_host=config.get('notification', 'host')
         )
 
+def test():
+    """
+    Simpel command-line program for testing clones work
+    """
+    args = GetArgs()
+    if args.password:
+        password = args.password
+    else:
+        password = getpass.getpass(prompt='Enter password for host %s and user %s: ' % (args.host, args.user))
+    connect(
+        host=args.host,
+        user=args.user,
+        pwd=password,
+        port=int(args.port)
+    )
+    if not si:
+        print("Could not connect to the specified host using specified "
+              "username and password")
+        return -1
+
+    atexit.register(Disconnect, si)
+
+    content = si.RetrieveContent()
+    for child in content.rootFolder.childEntity:
+        if hasattr(child, 'vmFolder'):
+            datacenter = child
+            vm_folder = datacenter.vmFolder
+            vm_list = vm_folder.childEntity
+            for vm in vm_list:
+                if vm.summary.config.name == args.vm:
+                    clone_all_vms(vm)
+            return 0
 
 def main():
     """

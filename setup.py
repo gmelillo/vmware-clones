@@ -41,13 +41,14 @@ DATA = [
 ENTRY_POINTS = {
     'console_scripts': [
         'vmwareclone-batch = vclones:batch',
-        'vmwareclone = vclones:main'
+        'vmwareclone = vclones:main',
+        'vmwareclone-test = vclones:test'
     ]
 }
 
 setup(
     name='vmware-cloning',
-    version='0.1.6',
+    version='0.1.7',
     author="Gabriel Melillo",
     author_email="gabriel@melillo.me",
     maintainer="Gabriel Melillo",
