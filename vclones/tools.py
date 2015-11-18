@@ -52,8 +52,22 @@ def get_obj(content, vimtype, name):
 
     return obj
 
+def delete_folder_from_datastore(content, datacenter_name, folder):
+    """
+    Delete file or folder(not empty too) from datastore.
+    """
+    datacenter = get_obj(content, [vim.Datacenter], datacenter_name)
+    task = vim.FileManager.DeleteDatastoreFile_Task(
+        content.fileManager,
+        folder,
+        datacenter
+    )
+    wait_for_task(task)
 
 def delete_file_from_datastore(content, datastore_name, path):
+    """
+    Delete a single file or empty folder on given datastore
+    """
     try:
         datastore = get_obj(content, [vim.Datastore], datastore_name)
         datastore.browser.DeleteFile('[{0}] {1}'.format(datastore_name, path))
@@ -63,10 +77,13 @@ def delete_file_from_datastore(content, datastore_name, path):
 
 
 def move_file_on_datastore(content, datastore_name, datacenter_name, source, destination):
+    """
+    Move file or folder (Fail if destination already exists)
+    """
     datacenter = get_obj(content, [vim.Datacenter], datacenter_name)
     datastore = get_obj(content, [vim.Datastore], datastore_name)
     task = vim.FileManager.MoveDatastoreFile_Task(
-        datastore.browser,
+        content.fileManager,
         '[{0}] {1}'.format(datastore_name, source),
         datacenter,
         '[{0}] {1}'.format(datastore_name, destination),
@@ -76,7 +93,11 @@ def move_file_on_datastore(content, datastore_name, datacenter_name, source, des
     wait_for_task(task)
 
 
+
 def search_file_on_datastore(content, datastore_name, path):
+    """
+    Fix needed
+    """
     datastore = get_obj(content, [vim.Datastore], datastore_name)
     return datastore.browser
 

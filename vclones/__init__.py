@@ -136,29 +136,11 @@ def clone_all_vms(vm, depth=1):
             print(cloned_vm_dir)
             if cloned_vm_dir == '[{0}] {1}-clone/'.format(config.get('storage', 'clone-storage'), summary.config.name):
                 try:
-                    delete_file_from_datastore(
+                    delete_folder_from_datastore(
                         si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmdk'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.nvram'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmxf'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmsd'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone_1/{0}-clone.vmx'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone_1'.format(summary.config.name)
+                        config.get('storage', 'clone-storage'),
+                        config.get('storage', 'datacenter'),
+                        '[{1}] {0}-clone_1'.format(summary.config.name, config.get('storage', 'clone-storage'))
                     )
                     VMS.append({
                         'name': summary.config.name,
@@ -171,29 +153,11 @@ def clone_all_vms(vm, depth=1):
                     })
             else:
                 try:
-                    delete_file_from_datastore(
+                    delete_folder_from_datastore(
                         si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmdk'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.nvram'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmxf'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmsd'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone/{0}-clone.vmx'.format(summary.config.name)
-                    )
-                    delete_file_from_datastore(
-                        si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'), '{0}-clone'.format(summary.config.name)
+                        config.get('storage', 'clone-storage'),
+                        config.get('storage', 'datacenter'),
+                        '[{1}] {0}-clone'.format(summary.config.name, config.get('storage', 'clone-storage'))
                     )
                     VMS.append({
                         'name': summary.config.name,
@@ -292,8 +256,11 @@ def test():
             vm_folder = datacenter.vmFolder
             vm_list = vm_folder.childEntity
             for vm in vm_list:
-                if vm.summary.config.name == args.vm:
-                    clone_all_vms(vm)
+                try:
+                    if vm.summary.config.name == args.vm:
+                        clone_all_vms(vm)
+                except:
+                    pass
             return 0
 
 def main():
