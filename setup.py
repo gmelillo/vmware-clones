@@ -47,8 +47,8 @@ ENTRY_POINTS = {
 }
 
 setup(
-    name='vmware-cloning',
-    version='0.2.8',
+    name='vmware-clones',
+    version='0.2.9',
     author="Gabriel Melillo",
     author_email="gabriel@melillo.me",
     maintainer="Gabriel Melillo",
