@@ -138,7 +138,6 @@ def clone_all_vms(vm, depth=1):
                 try:
                     delete_folder_from_datastore(
                         si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'),
                         config.get('storage', 'datacenter'),
                         '[{1}] {0}-clone_1'.format(summary.config.name, config.get('storage', 'clone-storage'))
                     )
@@ -155,7 +154,6 @@ def clone_all_vms(vm, depth=1):
                 try:
                     delete_folder_from_datastore(
                         si.RetrieveContent(),
-                        config.get('storage', 'clone-storage'),
                         config.get('storage', 'datacenter'),
                         '[{1}] {0}-clone'.format(summary.config.name, config.get('storage', 'clone-storage'))
                     )
