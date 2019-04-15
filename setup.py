@@ -14,10 +14,10 @@ CLASSIFIERS = [
 REQUIREMENTS = [
     "argparse==1.2.1",
     "pyvmomi==5.5.0.2014.1.1",
-    "requests==2.7.0",
+    "requests==2.20.0",
     "six==1.9.0",
     "wsgiref==0.1.2",
-    "Jinja2==2.8",
+    "Jinja2==2.10.1",
 ]
 
 PLATFORMS = [
@@ -48,7 +48,7 @@ ENTRY_POINTS = {
 
 setup(
     name='vmware-clones',
-    version='0.2.11',
+    version='0.2.12',
     author="Gabriel Melillo",
     author_email="gabriel@melillo.me",
     maintainer="Gabriel Melillo",
