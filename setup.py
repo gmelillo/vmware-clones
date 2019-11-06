@@ -15,7 +15,7 @@ REQUIREMENTS = [
     "argparse==1.2.1",
     "pyvmomi==6.7.3",
     "requests==2.20.0",
-    "six==1.12.0",
+    "six==1.13.0",
     "wsgiref==0.1.2",
     "Jinja2==2.10.3",
 ]
