@@ -13,7 +13,7 @@ CLASSIFIERS = [
 
 REQUIREMENTS = [
     "argparse==1.4.0",
-    "pyvmomi==6.7.3",
+    "pyvmomi==7.0",
     "requests==2.23.0",
     "six==1.14.0",
     "wsgiref==0.1.2",
