@@ -17,7 +17,7 @@ REQUIREMENTS = [
     "requests==2.25.1",
     "six==1.15.0",
     "wsgiref==0.1.2",
-    "Jinja2==2.11.3",
+    "Jinja2==3.1.2",
 ]
 
 PLATFORMS = [
