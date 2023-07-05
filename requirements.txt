@@ -1,4 +1,4 @@
 argparse==1.4.0
 wsgiref==0.1.2
 jinja2==2.11.3
-requests==2.25.1
+requests==2.31.0
